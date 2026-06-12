@@ -111,7 +111,7 @@ server.listen(PORT, () => {
     if (error.code === "EADDRINUSE") {
         console.error(`Port ${PORT} is already in use. Either:`);
         console.error(`  1. Open http://localhost:${PORT}/flights.html (server may already be running)`);
-        console.error(`  2. Stop the other process, or run: $env:PORT=3001; node server.js`);
+        console.error(`  2. Stop the other process, or run: $env:PORT=3001; node local-server.js`);
         process.exit(1);
     }
 

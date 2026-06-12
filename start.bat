@@ -5,5 +5,5 @@ if not exist "node_modules\" (
     call npm install
 )
 echo Starting Plane-Fo local server...
-node server.js
+node local-server.js
 pause
