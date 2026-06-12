@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/jpg" href="images/fav.jpg">
+    <title>Plan-Fo</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">
+            <img src="images/fav.jpg" alt="Website Logo" width="40" height="40">
+        </a>
+        <div class="header-title">
+            <h1>Plan-Fo</h1>
+            <p>Click on The Plane Cards To Get More Information About The Airplane </p>
+        </div>
+        <div class="search-container">
+            <input type="text" ialsd="searchBar" placeholder="Search for a plane..." onkeyup="filterPlaneCards()">
+            <p id="noResultsMessage" style="display: none;">No planes match your search.</p>
+        </div>        
+    </header>
+    
+    <main>
+        <section class="feature-banner">
+            <div class="feature-banner-copy">
+                <h2>Flight Booking Explorer</h2>
+                <p>Compare direct and connecting fares across major Indian cities.</p>
+            </div>
+            <a class="feature-button" href="flights.html">Explore Flights</a>
+        </section>
+
+        <div id="planeCardsContainer">
+            <div class="gallery">
+                <!-- Plane Card 1 -->
+                <div class="plane-card" onclick="openPlanePage('a320neo.html')">
+                    <img src="images/a320neo.jpg" alt="A320-NEO">
+                    <div class="plane-info">
+                        <h3>Airbus A320-NEO</h3>
+                        <p>A modern, fuel-efficient narrow-body aircraft designed for 
+                            short to medium-haul flights, offering improved fuel economy and reduced emissions.</p>
+                    </div>
+                </div>
+
+                <!-- Plane Card 2 -->
+                <div class="plane-card" onclick="openPlanePage('a380-842.html')">
+                    <img src="images/a380-842.jpg" alt="A380-842">
+                    <div class="plane-info">
+                        <h3>Airbus A380-842</h3>
+                        <p>The world's largest commercial airliner, a wide-body, long-range aircraft capable of carrying
+                            up to 850 passengers across ultra-long-haul routes.</p>
+                    </div>
+                </div>
+
+                <!-- Plane Card 3 -->
+                <div class="plane-card" onclick="openPlanePage('a350_941.html')">
+                    <img src="images/a350.jpg" alt="A350-941">
+                    <div class="plane-info">
+                        <h3>Airbus A350-941</h3>
+                        <p> A wide-body, twin-engine airliner designed for long-haul flights, featuring advanced materials and technology for improved
+                            fuel efficiency and passenger comfort.</p>
+                    </div>
+                </div>
+                <!-- Plane Card 4 -->
+                <div class="plane-card" onclick="openPlanePage('a340.html')">
+                    <img src="images/a340.jpg" alt="A340-941">
+                    <div class="plane-info">
+                        <h3>Airbus A340-941</h3>
+                        <p>A long-range, four-engine wide-body airliner known for its fuel efficiency and used primarily on intercontinental flights.</p>
+                    </div>
+                </div>
+
+                <!-- Plane Card 5 -->
+                <div class="plane-card" onclick="openPlanePage('a_beluga.html')">
+                    <img src="images/a330_beluga.jpg" alt="Airbus Beluga">
+                    <div class="plane-info">
+                        <h3>Airbus Beluga XL</h3>
+                        <p>A massive cargo aircraft designed for transporting large parts of aircraft, especially the Airbus A350, with a distinctively oversized cargo hold.</p>
+                    </div>
+                </div>
+
+                <!-- Plane Card 6 -->
+                <div class="plane-card" onclick="openPlanePage('a330_900.html')">
+                    <img src="images/a330.avif" alt="A330-900">
+                    <div class="plane-info">
+                        <h3>Airbus A330-900</h3>
+                        <p>A wide-body, twin-engine airliner offering enhanced fuel efficiency and comfort for long-haul flights, part of the A330neo family.</p>
+                    </div>
+                </div>
+                
+                <!-- Plane Card 7 -->
+                <div class="plane-card" onclick="openPlanePage('B737_max8.html')">
+                    <img src="images/B737-MAX8.jpg" alt="B737-MAX8r">
+                    <div class="plane-info">
+                        <h3>Boeing B737-MAX8</h3>
+                        <p>A next-generation, fuel-efficient narrow-body airliner designed for short to medium-haul flights, equipped 
+                            with advanced engines and aerodynamics for reduced operating costs.</p>
+                    </div>
+                </div>
+                
+                <!-- Plane Card 8 -->
+                <div class="plane-card" onclick="openPlanePage('b747-8.html')">
+                    <img src="images/b747-8.jpg" alt="B747-8">
+                    <div class="plane-info">
+                        <h3>Boeing B747-8</h3>
+                        <p>The largest and latest version of the iconic Boeing 747, offering superior range and fuel efficiency
+                            while carrying up to 700 passengers in a two-class configuration.</p>
+                    </div>
+                </div>
+
+                <!-- Plane Card 9 -->
+                <div class="plane-card" onclick="openPlanePage('b777_300er.html')">
+                    <img src="images/b777-300er.jpg" alt="B777-300r">
+                    <div class="plane-info">
+                        <h3>Boeing B777-300ER</h3>
+                        <p>A long-range, wide-body aircraft with advanced fuel-efficient engines, offering a spacious cabin and the capability
+                            to carry 396 passengers over vast distances.</p>
+                    </div>
+                </div>
+
+                <!-- Plane Card 10-->
+                <div class="plane-card" onclick="openPlanePage('b787.html')">
+                    <img src="images/b787.jpg" alt="B777-300r">
+                    <div class="plane-info">
+                        <h3>Boeing B787 Dreamliner</h3>
+                        <p> A fuel-efficient, wide-body, twin-engine airliner renowned for its advanced materials, comfort, and long-range capabilities.</p>
+                    </div>
+                </div>
+
+                <!-- Plane Card 11 -->
+                <div class="plane-card" onclick="openPlanePage('747dream.html')">
+                    <img src="images/747-dream.jpg" alt="B747 Dreamlifter">
+                    <div class="plane-info">
+                        <h3>Boeing B747 Dreamlifter</h3>
+                        <p>A cargo variant of the Boeing 747 designed specifically to transport large components of the 787 Dreamliner to various assembly points.</p>
+                    </div>
+                </div>
+
+                <!-- Plane Card 12-->
+                <div class="plane-card" onclick="openPlanePage('b767.html')">
+                    <img src="images/b767.jpg" alt="B747 Dreamlifter">
+                    <div class="plane-info">
+                        <h3>Boeing B767-300ER</h3>
+                        <p>A versatile, wide-body airliner used for both passenger and cargo services, known for its long-range capability and reliability.</p>
+                    </div>
+                </div>
+
+                <!-- Plane Card 13 -->
+                <div class="plane-card" onclick="openPlanePage('f15eagle.html')">
+                    <img src="images/f15-eagle.jpg" alt="F-15 Eagle">
+                    <div class="plane-info">
+                        <h3>McDonnell Douglas F-15 Eagle</h3>
+                        <p>A twin-engine, all-weather tactical fighter developed by McDonnell Douglas, known for its speed,
+                            agility, and unmatched air superiority.</p>
+                    </div>
+                </div>
+
+                <!-- Plane Card 14 -->
+                <div class="plane-card" onclick="openPlanePage('sr71.html')">
+                    <img src="images/sr71.jpg" alt="sr71">
+                    <div class="plane-info">
+                        <h3>Lockheed SR-71 Blackbird</h3>
+                        <p>A high-speed, high-altitude reconnaissance aircraft designed by Lockheed Martin, renowned for its 
+                            Mach 3+ capabilities and stealthy design.</p>
+                    </div>
+                </div>
+
+                <!-- Plane Card 15 -->
+                <div class="plane-card" onclick="openPlanePage('su30.html')">
+                    <img src="images/su-30.jpg" alt="su-30 Eagle">
+                    <div class="plane-info">
+                        <h3>Sukhoi Su-30</h3>
+                        <p>A versatile, twin-engine multirole fighter from Russia's Sukhoi, capable of performing air superiority,
+                            ground attack, and reconnaissance missions.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Additional plane info in progress -->
+            </div>
+        </div>
+    </main>
+</body>
+<footer>
+    <p>&copy; 2024 Plane-Fo. All rights reserved.</p>
+</footer>
+</html>

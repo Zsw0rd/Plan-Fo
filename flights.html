@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/jpg" href="images/fav.jpg">
+    <title>Plane-Fo Flight Explorer</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body class="booking-page">
+    <header>
+        <a href="index.html" class="logo">
+            <img src="images/fav.jpg" alt="Website Logo" width="40" height="40">
+        </a>
+        <div class="header-title">
+            <h1>Flight Booking Explorer</h1>
+        </div>
+    </header>
+
+    <main class="booking-main">
+        <section class="booking-controls" aria-label="Flight search">
+            <label class="booking-control">
+                <span>Flying from</span>
+                <select id="originCity" required></select>
+            </label>
+
+            <label class="booking-control">
+                <span>Flying to</span>
+                <select id="destinationCity" required></select>
+            </label>
+
+            <label class="booking-control">
+                <span>Departure date</span>
+                <input type="date" id="departureDate" required>
+            </label>
+
+            <label class="booking-control">
+                <span>Max budget (INR)</span>
+                <input type="number" id="budgetInput" min="0" step="100" placeholder="Optional">
+            </label>
+
+            <button id="searchFlightsBtn" class="feature-button" type="button">Search Live Flights</button>
+        </section>
+
+        <section class="booking-summary" id="flightSummary" aria-live="polite"></section>
+
+        <div class="flight-category-tabs" role="tablist" aria-label="Flight type">
+            <button class="flight-tab is-active" type="button" role="tab" id="tabDirect" aria-selected="true" aria-controls="directFlights" data-category="direct">
+                Direct flights
+                <span class="flight-tab-count" id="directCount">0</span>
+            </button>
+            <button class="flight-tab" type="button" role="tab" id="tabConnecting" aria-selected="false" aria-controls="connectingFlights" data-category="connecting">
+                Connecting flights
+                <span class="flight-tab-count" id="connectingCount">0</span>
+            </button>
+            <button class="flight-tab" type="button" role="tab" id="tabAll" aria-selected="false" aria-controls="allFlights" data-category="all">
+                Show both
+            </button>
+        </div>
+
+        <section class="flight-category-section" id="directSection" aria-labelledby="tabDirect">
+            <div class="flight-category-header">
+                <h2>Direct flights</h2>
+            </div>
+            <div class="flight-grid" id="directFlights" aria-live="polite"></div>
+        </section>
+
+        <section class="flight-category-section" id="connectingSection" aria-labelledby="tabConnecting">
+            <div class="flight-category-header">
+                <h2>Connecting flights</h2>
+            </div>
+            <div class="flight-grid" id="connectingFlights" aria-live="polite"></div>
+        </section>
+    </main>
+</body>
+<footer>
+    <p>&copy; 2024 Plane-Fo. All rights reserved.</p>
+</footer>
+</html>
