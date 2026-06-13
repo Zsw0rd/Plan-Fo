@@ -2,7 +2,7 @@ const http = require("http");
 const fs = require("fs");
 const path = require("path");
 const { URL } = require("url");
-const { searchFlightOffers } = require("./lib/google-flights");
+const { getBookingRedirect, searchFlightOffers } = require("./lib/google-flights");
 
 const ROOT_DIR = __dirname;
 const PORT = Number(process.env.PORT || 3000);
@@ -30,6 +30,14 @@ function sendJson(response, statusCode, payload) {
         "Pragma": "no-cache"
     });
     response.end(JSON.stringify(payload));
+}
+
+function redirect(response, statusCode, location) {
+    response.writeHead(statusCode, {
+        "Location": location,
+        "Cache-Control": "no-store, max-age=0"
+    });
+    response.end();
 }
 
 function resolveStaticPath(requestPath) {
@@ -85,6 +93,53 @@ async function handleFlightSearch(request, response, query) {
     }
 }
 
+function parseSelectedLegs(value) {
+    try {
+        const parsed = JSON.parse(String(value || "[]"));
+        return Array.isArray(parsed) ? parsed : [];
+    } catch (_error) {
+        return [];
+    }
+}
+
+async function handleBookingRedirect(request, response, query) {
+    const origin = String(query.get("origin") || "").toUpperCase();
+    const destination = String(query.get("destination") || "").toUpperCase();
+    const departureDate = String(query.get("departureDate") || "");
+    const bookingToken = String(query.get("bookingToken") || "");
+    const fallbackUrl = String(query.get("fallbackUrl") || "");
+    const selectedLegs = parseSelectedLegs(query.get("selectedLegs"));
+
+    try {
+        const bookingUrl = await getBookingRedirect({
+            bookingToken,
+            origin,
+            destination,
+            departureDate,
+            selectedLegs
+        });
+
+        if (bookingUrl) {
+            return redirect(response, 302, bookingUrl);
+        }
+
+        if (fallbackUrl.startsWith("https://www.google.com/travel/flights/")) {
+            return redirect(response, 302, fallbackUrl);
+        }
+
+        sendJson(response, 404, { error: "No booking redirect was available for this flight." });
+    } catch (error) {
+        if (fallbackUrl.startsWith("https://www.google.com/travel/flights/")) {
+            return redirect(response, 302, fallbackUrl);
+        }
+
+        sendJson(response, 502, {
+            error: "Unable to open the selected booking option.",
+            details: error.message
+        });
+    }
+}
+
 const server = http.createServer(async (request, response) => {
     const requestUrl = new URL(request.url, `http://${request.headers.host || "localhost"}`);
 
@@ -94,6 +149,14 @@ const server = http.createServer(async (request, response) => {
         }
 
         return handleFlightSearch(request, response, requestUrl.searchParams);
+    }
+
+    if (requestUrl.pathname === "/api/book") {
+        if (request.method !== "GET") {
+            return sendJson(response, 405, { error: "Method not allowed." });
+        }
+
+        return handleBookingRedirect(request, response, requestUrl.searchParams);
     }
 
     const staticPath = resolveStaticPath(requestUrl.pathname);

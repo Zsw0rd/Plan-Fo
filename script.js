@@ -34,7 +34,8 @@ window.openPlanePage = openPlanePage;
 window.filterPlaneCards = filterPlaneCards;
 
 const flightApiConfig = {
-    endpoint: "/api/flights"
+    endpoint: "/api/flights",
+    bookingEndpoint: "/api/book"
 };
 
 const indianAirports = [
@@ -435,6 +436,23 @@ function createFlightCard(offer, context, category) {
 }
 
 function buildGoogleFlightsUrl({ originCode, destinationCode, departureDate, category, offer }) {
+    if (offer?.bookingUrl) {
+        return offer.bookingUrl;
+    }
+
+    if (offer?.bookingToken && offer?.selectedLegs?.length) {
+        const params = new URLSearchParams({
+            origin: originCode,
+            destination: destinationCode,
+            departureDate,
+            bookingToken: offer.bookingToken,
+            selectedLegs: JSON.stringify(offer.selectedLegs),
+            fallbackUrl: offer.selectedGoogleFlightsUrl || offer.googleFlightsUrl || ""
+        });
+
+        return `${flightApiConfig.bookingEndpoint}?${params.toString()}`;
+    }
+
     if (offer?.selectedGoogleFlightsUrl) {
         return offer.selectedGoogleFlightsUrl;
     }
