@@ -52,8 +52,8 @@ const indianAirports = [
 
 const bookingSites = [
     {
-        name: "Google Flights",
-        title: "Open this selected itinerary on Google Flights",
+        name: "Book selected flight",
+        title: "Open the booking option for this exact selected itinerary",
         builder: buildGoogleFlightsUrl
     }
 ];
@@ -216,9 +216,12 @@ async function fetchLiveFlightOffers(originCode, destinationCode, departureDate)
     const params = new URLSearchParams({
         origin: originCode,
         destination: destinationCode,
-        departureDate
+        departureDate,
+        _: String(Date.now())
     });
-    const response = await fetch(`${flightApiConfig.endpoint}?${params.toString()}`);
+    const response = await fetch(`${flightApiConfig.endpoint}?${params.toString()}`, {
+        cache: "no-store"
+    });
 
     if (!response.ok) {
         const errorPayload = await response.json().catch(() => ({}));
@@ -366,10 +369,13 @@ function createFlightCard(offer, context, category) {
             offer
         });
         const title = site.title ? ` title="${escapeHtml(site.title)}"` : "";
+        const label = offer.bookingSellerName
+            ? `Book with ${offer.bookingSellerName}`
+            : site.name;
 
         return `
             <a class="booking-site-link" href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer"${title}>
-                ${site.name}
+                ${escapeHtml(label)}
             </a>
         `;
     }).join("");

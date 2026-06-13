@@ -3,7 +3,8 @@ const { searchFlightOffers } = require("../lib/google-flights");
 function sendJson(response, statusCode, payload) {
     response.statusCode = statusCode;
     response.setHeader("Content-Type", "application/json; charset=utf-8");
-    response.setHeader("Cache-Control", "no-store");
+    response.setHeader("Cache-Control", "no-store, max-age=0");
+    response.setHeader("Pragma", "no-cache");
     response.end(JSON.stringify(payload));
 }
 

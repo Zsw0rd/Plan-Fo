@@ -25,7 +25,9 @@ const MIME_TYPES = {
 function sendJson(response, statusCode, payload) {
     response.writeHead(statusCode, {
         "Content-Type": "application/json; charset=utf-8",
-        "Access-Control-Allow-Origin": "*"
+        "Access-Control-Allow-Origin": "*",
+        "Cache-Control": "no-store, max-age=0",
+        "Pragma": "no-cache"
     });
     response.end(JSON.stringify(payload));
 }
